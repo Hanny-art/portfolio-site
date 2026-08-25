@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdul Hannan | Portfolio</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #0056b3;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-color: #38bdf8;
+            --border-color: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navigation Bar */
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logo span { color: var(--accent-color); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-color);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 0.2rem 0.8rem;
+        }
+
+        .search-box input {
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-color);
+            padding: 0.4rem;
+        }
+
+        .search-box button {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Page Tab Visibility Control */
+        .page-tab {
+            display: none;
+        }
+
+        .page-tab.active-page {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+        }
+
+        /* PAGE 1: HOME PAGE STYLES */
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            background-color: var(--card-bg);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-image img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-color);
+        }
+
+        .hero-text { flex: 1; }
+        .hero-text h1 { font-size: 2.5rem; }
+        .hero-text h2 { color: var(--accent-color); margin-bottom: 1rem; }
+        .hero-text p { color: var(--text-muted); margin-bottom: 1.5rem; }
+
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background-color: var(--secondary-color); }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .detail-card i {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .objective-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .objective-card h3 { color: var(--accent-color); margin-bottom: 0.5rem; }
+
+        /* EXPERIENCE, SKILLS & EDUCATION STYLES */
+        .timeline-item, .project-card, .edu-card, .skills-box, .contact-info, .contact-form-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .projects-grid, .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--bg-color);
+            color: var(--accent-color);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        /* SKILLS PROGRESS BARS & CARDS */
+        .skills-wrapper { display: flex; flex-direction: column; gap: 1.5rem; }
+        .skill-bar { margin-top: 1rem; }
+        .skill-bar .info { display: flex; justify-content: space-between; margin-bottom: 0.3rem; }
+        .bar { height: 10px; background: var(--bg-color); border-radius: 5px; overflow: hidden; }
+        .progress { display: block; height: 100%; background: var(--accent-color); }
+        
+        .cards-flex { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+        .skill-card { background: var(--bg-color); padding: 1rem 1.5rem; border-radius: 6px; text-align: center; }
+        .skill-card i { font-size: 1.8rem; color: var(--accent-color); }
+
+        .soft-skills-list { list-style: none; margin-top: 1rem; }
+        .soft-skills-list li { margin-bottom: 0.5rem; }
+        .soft-skills-list i { color: var(--accent-color); margin-right: 0.5rem; }
+
+        /* CONTACT FORM STYLES */
+        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.3rem; color: var(--text-muted); }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 6px;
+        }
+        .form-status { margin-top: 1rem; font-weight: bold; }
+
+        /* SEARCH MODAL STYLES */
+        .modal {
+            display: none; position: fixed; z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 10% auto; padding: 2rem;
+            border: 1px solid var(--border-color);
+            width: 80%; max-width: 600px; border-radius: 8px;
+            position: relative;
+        }
+        .close-btn { position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; }
+        .search-item-result { padding: 0.8rem; border-bottom: 1px solid var(--border-color); }
+
+        /* FOOTER STYLES */
+        footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: auto;
+        }
+        .footer-content { display: flex; flex-direction: column; gap: 0.5rem; }
+        .social-links a { color: var(--text-color); font-size: 1.2rem; margin: 0 0.5rem; transition: 0.3s; }
+        .social-links a:hover { color: var(--accent-color); }
+
+        /* RESPONSIVENESS */
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; }
+            .hero { flex-direction: column; text-align: center; }
+            .contact-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Shared Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo"><a onclick="switchTab('home')">Abdul <span>Hannan</span></a></div>
+            <ul class="nav-links">
+                <li><a onclick="switchTab('home')" id="nav-home" class="active">Home</a></li>
+                <li><a onclick="switchTab('experience')" id="nav-experience">Experience</a></li>
+                <li><a onclick="switchTab('skills')" id="nav-skills">Skills</a></li>
+                <li><a onclick="switchTab('education')" id="nav-education">Education</a></li>
+                <li><a onclick="switchTab('contact')" id="nav-contact">Contact</a></li>
+            </ul>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search keywords...">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Search Modal Popup -->
+    <div id="searchResultsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeSearch">&times;</span>
+            <h3>Search Results</h3>
+            <div id="searchResultsList" style="margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+    <!-- Main Container Layout -->
+    <main class="container">
+
+        <!-- PAGE 1: HOME PAGE -->
+        <div id="home" class="page-tab active-page">
+            <section class="hero search-target">
+                <div class="hero-image">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE7Z0yrsbnjUxj75pC5l_F8JNazVIDF3iv1cntj7SbvfOIlg50Vb6Rzb_A&s=10" alt="Abdul Hannan Profile Picture">
+                </div>
+                <div class="hero-text">
+                    <h1>Hello, I'm <span style="color:var(--accent-color);">Abdul Hannan</span></h1>
+                    <h2>Software Engineer</h2>
+                    <p>I am a passionate Software Engineering student with strong knowledge of HTML, CSS, JavaScript, C++, and Databases. I enjoy creating responsive, modern websites and solving real-world programming problems.</p>
+                    <button onclick="switchTab('contact')" class="btn">Contact Me</button>
+                </div>
+            </section>
+
+            <section class="details-section search-target">
+                <h2 style="margin-bottom: 1rem;">About Me & Personal Details</h2>
+                <div class="details-grid">
+                    <div class="detail-card">
+                        <i class="fas fa-user-clock"></i>
+                        <h3>Age</h3>
+                        <p>23 Years</p>
+                    </div>
+                    <div class="detail-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>City</h3>
+                        <p>Skardu, Pakistan</p>
+                    </div>
+                    <div class="detail-card">
+                        <i class="fas fa-bullseye"></i>
+                        <h3>Career Goal</h3>
+                        <p>Software Engineer</p>
+                    </div>
+                    <div class="detail-card">
+                        <i class="fas fa-football-ball"></i>
+                        <h3>Hobbies</h3>
+                        <p>Football, Running, Coding</p>
+                    </div>
+                </div>
+
+                <div class="objective-card search-target">
+                    <h3><i class="fas fa-compass"></i> Career Objective</h3>
+                    <p>My objective is to become a professional Software Engineer by continuously improving my technical skills and gaining practical experience in software development. I enjoy learning new technologies and building user-friendly applications.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 2: EXPERIENCE PAGE -->
+        <div id="experience" class="page-tab">
+            <h1 class="page-title">Experience & Projects</h1>
+
+            <section class="experience-section search-target">
+                <h2><i class="fas fa-briefcase"></i> Work & Internship Experience</h2>
+                <div class="timeline" style="margin-top: 1rem;">
+                    <div class="timeline-item">
+                        <span style="color:var(--accent-color); font-weight:bold;">2025 - Present</span>
+                        <h3>Frontend Web Development Intern</h3>
+                        <h4>Tech Solutions Inc.</h4>
+                        <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+                            <li>Developed responsive layout components using HTML, CSS, and modern JavaScript.</li>
+                            <li>Collaborated with senior engineers to optimize website performance.</li>
+                            <li>Integrated RESTful API endpoints for client data processing.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="projects-section search-target">
+                <h2 style="margin-bottom: 1rem;"><i class="fas fa-laptop-code"></i> Projects Completed</h2>
+                <div class="projects-grid">
+                    <div class="project-card search-target">
+                        <h3>Personal Portfolio Website</h3>
+                        <p>Built an interactive web portfolio with keyword search capability, responsiveness, and modern UI elements.</p>
+                        <span class="tag">HTML5</span> <span class="tag">CSS3</span> <span class="tag">JavaScript</span>
+                    </div>
+                    <div class="project-card search-target">
+                        <h3>Student Management System</h3>
+                        <p>Developed a C++ system connected with SQL database logic to record, update, and manage student academic details.</p>
+                        <span class="tag">C++</span> <span class="tag">SQL</span> <span class="tag">Database</span>
+                    </div>
+                    <div class="project-card search-target">
+                        <h3>Task Tracker Application</h3>
+                        <p>Created a dynamic web app to track daily goals using LocalStorage for persistent client data.</p>
+                        <span class="tag">JavaScript</span> <span class="tag">CSS Animations</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 3: SKILLS PAGE -->
+        <div id="skills" class="page-tab">
+            <h1 class="page-title">Technical & Soft Skills</h1>
+
+            <section class="skills-wrapper">
+                <div class="skills-box search-target">
+                    <h2><i class="fas fa-code"></i> Programming Languages</h2>
+                    <div class="skill-bar">
+                        <div class="info"><span>HTML5 & CSS3</span><span>90%</span></div>
+                        <div class="bar"><span class="progress" style="width: 90%;"></span></div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="info"><span>JavaScript (ES6+)</span><span>80%</span></div>
+                        <div class="bar"><span class="progress" style="width: 80%;"></span></div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="info"><span>C++ Programming</span><span>85%</span></div>
+                        <div class="bar"><span class="progress" style="width: 85%;"></span></div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="info"><span>SQL & Databases</span><span>75%</span></div>
+                        <div class="bar"><span class="progress" style="width: 75%;"></span></div>
+                    </div>
+                </div>
+
+                <div class="skills-box search-target">
+                    <h2><i class="fas fa-tools"></i> Software & Tools</h2>
+                    <div class="cards-flex">
+                        <div class="skill-card"><i class="fab fa-git-alt"></i><p>Git / GitHub</p></div>
+                        <div class="skill-card"><i class="fas fa-code"></i><p>VS Code</p></div>
+                        <div class="skill-card"><i class="fas fa-database"></i><p>MySQL Workbench</p></div>
+                    </div>
+                </div>
+
+                <div class="skills-box search-target">
+                    <h2><i class="fas fa-users"></i> Soft Skills</h2>
+                    <ul class="soft-skills-list">
+                        <li><i class="fas fa-check-circle"></i> Problem Solving & Logical Thinking</li>
+                        <li><i class="fas fa-check-circle"></i> Effective Communication & Teamwork</li>
+                        <li><i class="fas fa-check-circle"></i> Time Management & Goal Setting</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 4: EDUCATION PAGE -->
+        <div id="education" class="page-tab">
+            <h1 class="page-title">Education Qualifications</h1>
+
+            <section class="education-grid search-target">
+                <div class="edu-card search-target">
+                    <span style="color:var(--accent-color); font-weight:bold;">2022 - 2026 (Expected)</span>
+                    <h2>Bachelor of Science in Software Engineering (BSSE)</h2>
+                    <h3>University Institute</h3>
+                    <p>Enrolled in core software engineering studies including OOP, Data Structures, Web Development, and Software Architecture.</p>
+                    <p style="margin-top:0.5rem; color:var(--accent-color);"><strong>Achievement:</strong> Maintain high academic performance and merit standing.</p>
+                </div>
+
+                <div class="edu-card search-target">
+                    <span style="color:var(--accent-color); font-weight:bold;">2020 - 2022</span>
+                    <h2>Higher Secondary Certificate (FSc Pre-Engineering)</h2>
+                    <h3>College, Skardu</h3>
+                    <p>Completed pre-engineering baseline courses covering Mathematics, Physics, and Chemistry.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 5: CONTACT PAGE -->
+        <div id="contact" class="page-tab">
+            <h1 class="page-title">Contact Me</h1>
+
+            <div class="contact-container">
+                <div class="contact-info search-target">
+                    <h2>Get In Touch</h2>
+                    <p style="color:var(--text-muted); margin-bottom: 1rem;">Feel free to contact me for job inquiries, projects, or questions!</p>
+                    
+                    <p style="margin-bottom: 0.5rem;"><i class="fas fa-user" style="color:var(--accent-color);"></i> <strong>Name:</strong> Abdul Hannan</p>
+                    <p style="margin-bottom: 0.5rem;"><i class="fas fa-envelope" style="color:var(--accent-color);"></i> <strong>Email:</strong> hann_y199@gmail.com</p>
+                    <p style="margin-bottom: 0.5rem;"><i class="fas fa-map-marker-alt" style="color:var(--accent-color);"></i> <strong>Address:</strong> Skardu, Pakistan</p>
+                </div>
+
+                <div class="contact-form-card search-target">
+                    <h2>Send Message</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" required placeholder="Your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required placeholder="Your email address">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="4" required placeholder="Your message..."></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                    <div id="formStatus" class="form-status"></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Shared Footer -->
+    <footer>
+        <div class="footer-content search-target">
+            <p>&copy; 2026 Abdul Hannan. All Rights Reserved.</p>
+            <p><i class="fas fa-envelope"></i> hann_y199@gmail.com</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Engine -->
+    <script>
+        // Tab Navigation Switcher
+        function switchTab(tabId) {
+            const pages = document.querySelectorAll('.page-tab');
+            pages.forEach(page => page.classList.remove('active-page'));
+
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active-page');
+            document.getElementById('nav-' + tabId).classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Keyword Search Engine
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const searchModal = document.getElementById('searchResultsModal');
+        const closeSearch = document.getElementById('closeSearch');
+        const searchResultsList = document.getElementById('searchResultsList');
+
+        function performSearch() {
+            const query = searchInput.value.trim().toLowerCase();
+            searchResultsList.innerHTML = '';
+
+            if (query === '') {
+                searchResultsList.innerHTML = '<p>Please enter a keyword to search.</p>';
+                searchModal.style.display = 'block';
+                return;
+            }
+
+            const targets = document.querySelectorAll('.search-target');
+            let matchCount = 0;
+
+            targets.forEach((element) => {
+                const textContent = element.innerText;
+                if (textContent.toLowerCase().includes(query)) {
+                    matchCount++;
+                    
+                    const div = document.createElement('div');
+                    div.classList.add('search-item-result');
+                    const snippet = textContent.length > 100 ? textContent.substring(0, 100) + '...' : textContent;
+                    
+                    div.innerHTML = `<p style="cursor:pointer; color:var(--accent-color);"><strong>Match Found:</strong> "${snippet.replace(/\n/g, ' ')}"</p>`;
+                    
+                    div.addEventListener('click', () => {
+                        searchModal.style.display = 'none';
+                        const parentTab = element.closest('.page-tab');
+                        if (parentTab) {
+                            switchTab(parentTab.id);
+                        }
+                        element.scrollIntoView({ behavior: 'smooth' });
+                        element.style.border = '2px solid #38bdf8';
+                        setTimeout(() => element.style.border = '1px solid var(--border-color)', 2500);
+                    });
+
+                    searchResultsList.appendChild(div);
+                }
+            });
+
+            if (matchCount === 0) {
+                searchResultsList.innerHTML = `<p style="color: #ef4444;">No results found for "${query}".</p>`;
+            }
+
+            searchModal.style.display = 'block';
+        }
+
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
+        closeSearch.addEventListener('click', () => { searchModal.style.display = 'none'; });
+        window.addEventListener('click', (e) => { if (e.target === searchModal) searchModal.style.display = 'none'; });
+
+        // Contact Form Handler
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const status = document.getElementById('formStatus');
+            status.style.color = '#4ade80';
+            status.textContent = 'Thank you! Your message has been sent successfully.';
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
